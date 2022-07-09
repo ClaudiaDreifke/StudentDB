@@ -1,55 +1,39 @@
 package model;
 
-import java.util.Arrays;
+import java.util.*;
 
 public class StudentDB {
 
-    Student[] studentArray;
+    Map<String, Student> allStudents = new HashMap<>();
 
-    public StudentDB(Student[] studentArray) {
-        this.studentArray = studentArray;
+    public StudentDB(Map<String, Student> allStudents) {
+        this.allStudents = allStudents;
     }
 
-    public Student[] getAllStudents(){
-        return studentArray;
-    }
 
     @Override
     public String toString() {
         return "StudentDB{" +
-                "studentArray=" + Arrays.toString(studentArray) +
+                "allStudents=" + allStudents +
                 '}';
     }
 
-    public Student randomStudent(Student[] studentArray) {
-        int randomIndex = (int) (studentArray.length * Math.random());
-        return studentArray[randomIndex];
+    public Student randomStudent(Map<String, Student> allStudents) {
+        List<String> keyList = new ArrayList<>(allStudents.keySet());
+        String randomKey = keyList.get((int) (Math.random()* keyList.size()));
+        return allStudents.get(randomKey);
     }
 
     public void addStudent(Student student) {
-        int length = studentArray.length;
-        Student[] updatedStudentArray = new Student[length + 1];
-        for (int i = 0; i < length; i++) {
-            updatedStudentArray[i] = studentArray[i];
-        }
-        updatedStudentArray[length - 1] = student;
-        studentArray = updatedStudentArray;
+        allStudents.put(student.getId(), student);
     }
 
-    // removeStudent() funktioniert nicht :(
     public void removeStudent(Student student) {
-        int length = studentArray.length;
-        for (int i = 0; i < length; i++) {
-            if (studentArray[i].equals(student)) {
-                Student[] updatedStudentArray = new Student[length - 1];
-                for (int j = 0; j < (length - 1); j++) {
-                    if (j != i) {
-                        updatedStudentArray[j] = studentArray[i];
-                    }
-                }
-                studentArray = updatedStudentArray;
-            }
-        }
+        allStudents.remove(student.getId(), student);
 
+    }
+
+    public Map<String, Student> getAllStudents() {
+        return allStudents;
     }
 }

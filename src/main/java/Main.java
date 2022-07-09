@@ -3,6 +3,8 @@ import model.Student;
 import model.StudentDB;
 
 import java.sql.SQLOutput;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,20 +14,20 @@ public class Main {
         ComputerScienceStudent student3 = new ComputerScienceStudent("Tom", "856", "Java");
         ComputerScienceStudent student4 = new ComputerScienceStudent("Lars", "564", "C++");
 
-        Student [] studentArray = {student1,student2, student3};
+        Map<String, Student> allStudents = new HashMap<>();
+        StudentDB studentDB = new StudentDB(allStudents);
 
-        StudentDB studentDB = new StudentDB(studentArray);
-
-        System.out.println(studentDB.randomStudent(studentArray));
-
+        studentDB.addStudent(student1);
+        studentDB.addStudent(student2);
+        studentDB.addStudent(student3);
         studentDB.addStudent(student4);
 
-        System.out.println(studentDB.toString());
-        System.out.println(studentArray.toString());
+        System.out.println(studentDB.randomStudent(allStudents));
 
-       // studentDB.removeStudent(student1);
+        studentDB.removeStudent(student1);
 
-        student1.newFancyMethod();
+        System.out.println(studentDB);
+
 
 
     }

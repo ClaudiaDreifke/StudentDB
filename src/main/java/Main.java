@@ -28,7 +28,11 @@ public class Main {
 
         System.out.println(studentDB);
 
-
+        try {
+            System.out.println(studentDB.findById("45"));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }

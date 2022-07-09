@@ -36,4 +36,12 @@ public class StudentDB {
     public Map<String, Student> getAllStudents() {
         return allStudents;
     }
+
+    public Student findById(String id) throws Exception {
+
+        if (allStudents.get(id) == null) {
+            throw new Exception("Achtung ID existiert nicht");
+        }
+        else return allStudents.get(id);
+    }
 }
